@@ -14,8 +14,11 @@ running = True
 global s, flag, choice_hs, hero, error_tail, way, flag_turn, flag_turn1, \
     flag_turn2, flag_turn3, turn_enemy, choice_alien, destr, health_hero, health_alien, fire, hit, tmp, mrh, \
     flag_choice_alien, type_alien, choice_hs, dead, flag_ab, g1, flag_ab1, col_ab, fj
-mp = random.randint(1, 4)
+mp = 5
 if mp == 1:
+    pygame.mixer.music.load('data/sounds/mission1.mp3')
+    pygame.mixer.music.set_volume(0.5)
+    pygame.mixer.music.play()
     tmxdata = load_pygame("data/map1.1.tmx")
     s = [[2, 4], [2, 3], [3, 3], [3, 2], [4, 2], [5, 2], [6, 2], [7, 2], [8, 2], [9, 2], [10, 2], [11, 2],
          [12, 2],
@@ -35,6 +38,9 @@ if mp == 1:
     choice_alien = [[3, 4], [4, 3], [4, 5], [5, 9], [5, 11],
                     [5, 17], [5, 19], [16, 21], [16, 23]]  # список клятых алиенов (сектоидов)
 elif mp == 2:
+    pygame.mixer.music.load('data/sounds/mission3.mp3')
+    pygame.mixer.music.set_volume(0.5)
+    pygame.mixer.music.play()
     tmxdata = load_pygame("data/map2_krissalids_nights.tmx")
     s = [[24, 10], [24, 11], [24, 12], [24, 13], [25, 18], [25, 19], [25, 20], [25, 21], [17, 10], [17, 9], [16, 9],
          [15, 9], [14, 9], [13, 9], [12, 9], [11, 9], [10, 9], [9, 9], [8, 9], [7, 9], [6, 9], [6, 8], [6, 7],
@@ -51,6 +57,9 @@ elif mp == 2:
     type_alien = ['krissalid', 'krissalid', 'sectoid', 'krissalid', 'sectoid',
                   'sectoid', 'sectoid', 'sectoid']
 elif mp == 3:
+    pygame.mixer.music.load('data/sounds/mission2.mp3')
+    pygame.mixer.music.set_volume(0.5)
+    pygame.mixer.music.play()
     tmxdata = load_pygame("data/map3.tmx")
     s = [[25, 12], [25, 11], [25, 10], [25, 9], [25, 8], [25, 7], [25, 6], [25, 5], [25, 4], [25, 3], [25, 2], [25, 1],
          [25, 0], [25, 15], [25, 16], [25, 17], [25, 18], [25, 19], [25, 20], [25, 21], [25, 22], [25, 23], [25, 24],
@@ -70,6 +79,9 @@ elif mp == 3:
     type_alien = ['myton', 'myton', 'myton', 'sectoid', 'sectoid',
                   'sectoid', 'sectoid', 'sectoid', 'sectoid']
 elif mp == 4:
+    pygame.mixer.music.load('data/sounds/battle1.mp3')
+    pygame.mixer.music.set_volume(0.5)
+    pygame.mixer.music.play()
     tmxdata = load_pygame("data/map4.tmx")
     s = [[21, 4], [21, 5], [21, 6], [21, 7], [21, 8], [21, 9], [21, 10], [21, 11], [21, 12], [21, 13], [21, 15],
          [21, 16], [21, 17], [21, 18], [21, 19], [21, 20], [21, 21], [21, 22], [21, 24], [21, 25], [21, 26],
@@ -88,6 +100,24 @@ elif mp == 4:
     health_alien = [6, 6, 6, 10, 10, 5, 5, 5, 5, 5, 5]
     type_alien = ['vaiper', 'vaiper', 'vaiper', 'myton', 'myton',
                   'sectoid', 'sectoid', 'sectoid', 'sectoid', 'sectoid', 'sectoid']
+elif mp == 5:
+    pygame.mixer.music.load('data/sounds/battle3.mp3')
+    pygame.mixer.music.set_volume(0.5)
+    pygame.mixer.music.play()
+    tmxdata = load_pygame("data/map5_final.tmx")
+    s = [[0, 9], [2, 9], [2, 10], [3, 10], [3, 11], [3, 12], [3, 13], [3, 14], [3, 15], [3, 16], [3, 17], [3, 18],
+         [3, 19], [2, 19], [2, 20], [0, 20], [6, 7], [6, 8], [6, 9], [6, 20], [6, 21], [6, 22], [8, 4], [8, 5], [8, 6],
+         [8, 23], [8, 24], [8, 25], [10, 2], [10, 3], [10, 4], [10, 25], [10, 26], [10, 27], [12, 0], [12, 2], [12, 4],
+         [12, 6], [12, 8], [12, 10], [12, 12], [12, 14], [12, 16], [12, 18], [12, 20], [12, 22], [12, 24], [12, 26],
+         [12, 28], [19, 0], [19, 1], [19, 2], [19, 3], [19, 5], [19, 6], [19, 7], [19, 8], [19, 9], [19, 10], [20, 10],
+         [21, 10], [22, 10], [23, 10], [24, 10], [25, 10], [26, 10], [27, 10], [28, 10], [29, 10], [29, 19], [28, 19],
+         [27, 19], [26, 19], [25, 19], [24, 19], [23, 19], [22, 19], [21, 19], [20, 19], [19, 19], [19, 20], [19, 21],
+         [19, 22], [19, 23], [19, 24], [19, 26], [19, 27], [19, 28], [19, 29]]
+    choice_alien = [[1, 13], [1, 14], [1, 15], [3, 25], [4, 26], [4, 3],
+                    [3, 4], [26, 3], [25, 4], [26, 5], [26, 23], [25, 24], [26, 25]]
+    health_alien = [10, 10, 10, 7, 6, 7, 6, 5, 5, 5, 5, 5, 5]
+    type_alien = ['myton', 'myton', 'myton', 'krissalid', 'vaiper',
+                  'krissalid', 'vaiper', 'sectoid', 'sectoid', 'sectoid', 'sectoid', 'sectoid', 'sectoid']
 flag = [2000, 2000]
 hero = 0
 error_tail = 0
@@ -100,7 +130,7 @@ col_ab = [0, 0, 0, 0]
 flag_ab1 = 0
 flag_choice_alien = 0
 health_hero = [6, 5, 4, 5]
-choice_hs = [[28, 11], [28, 10], [29, 9], [29, 12]]
+choice_hs = [[28, 13], [28, 12], [29, 11], [29, 14]]
 dead = [0, 0, 0, 0]
 flag_turn = 0  # флаг хода саппорта
 flag_turn1 = 0  # флаг хода штурмовика
@@ -217,6 +247,7 @@ class XCOM:
                         screen.blit(re, (965, 208))
                     elif mrh == 1:
                         screen.blit(strk, (965, 208))
+                        screen.blit()
                     else:
                         screen.blit(miss, (965, 208))
                 if flag_ab1 == 1:
@@ -389,6 +420,7 @@ while running:
                                 destr.append(elem)
                             for ele in s_kill:
                                 ele.kill()
+                            tmp = 10
                         else:
                             ver = random.uniform(0, 100)
                             if ver <= hit:
@@ -587,7 +619,7 @@ while running:
                             choice_hs[0] = s1
                     if s1 != choice_hs[0] and hero == 1 and dead[0] == 0:
                         if s1 not in s and Move.way(Move(), s, choice_hs[0][1], choice_hs[0][0], s1[1], s1[0], 7) \
-                                and flag_turn != 2 and s1 != choice_hs[2] and s1 != choice_hs[3] and s1 != choice_hs[1]\
+                                and flag_turn != 2 and s1 != choice_hs[2] and s1 != choice_hs[3] and s1 != choice_hs[1] \
                                 and s1 not in choice_alien:
                             choice_hs[0] = s1
                             hero = 0
@@ -914,3 +946,6 @@ while running:
     board.render()
     clock.tick(10)
     pygame.display.flip()
+
+if __name__ == '__main__':
+    pass
