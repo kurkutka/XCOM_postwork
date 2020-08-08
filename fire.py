@@ -97,7 +97,7 @@ class Fire:
                             flag = 1
                             s.append([x, y])
                             s_kill.append(elem)
-            ss = [s, s_kill]
+            ss = [s, s_kill, sprt1, h]
             if flag == 1:
                 return ss
             else:
