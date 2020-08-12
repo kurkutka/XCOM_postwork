@@ -1,5 +1,18 @@
 import math
 import pygame
+import os
+
+
+def load_image(name):
+    fullname = os.path.join('data/Текстуры', name)
+    image = pygame.image.load(fullname)
+    return image
+
+
+shoot1 = load_image('shoot1.png')
+shoot2 = load_image('shoot2.png')
+shoot3 = load_image('shoot3.png')
+shoot4 = load_image('shoot4.png')
 
 
 class Fire:
@@ -7,6 +20,7 @@ class Fire:
         bools_way = math.sqrt((abs(x1 * 32 - x2 * 32) ** 2) + (abs(y1 * 32 - y2 * 32) ** 2))
         math.floor(bools_way)
         bools_way = int(bools_way)
+        list_shoot = []
         if bools_way <= dist * 32:
             y1 = y1 * 32 + 16
             x1 = x1 * 32 + 16
@@ -20,6 +34,7 @@ class Fire:
             elif x2 - x1 == 0:
                 grad = 270
             scr.blit(sprt, (x1, y1))
+            shoot11 = pygame.transform.scale(sprt, (2, bools_way * 2))
             sprt1 = pygame.transform.scale(sprt, (1, bools_way * 2))
             scr.blit(sprt1, (x1, y1))
             if x2 > x1 and y2 < y1:
@@ -30,6 +45,9 @@ class Fire:
                 grad = 180 + grad
             elif x2 < x1 and y2 < y1:
                 grad = 180 - grad
+            shoot11 = pygame.transform.rotate(shoot11, grad)
+            shoot11 = pygame.transform.scale(shoot11, (2, bools_way // 2))
+            list_shoot.append(shoot11)
             sprt1 = pygame.transform.rotate(sprt1, grad)
             sprt2 = pygame.sprite.Sprite()
             sprt2.image = sprt1
@@ -97,7 +115,8 @@ class Fire:
                             flag = 1
                             s.append([x, y])
                             s_kill.append(elem)
-            ss = [s, s_kill, sprt1, h]
+            print(list_shoot)
+            ss = [s, s_kill, sprt1, list_shoot, [y2, x2]]
             if flag == 1:
                 return ss
             else:

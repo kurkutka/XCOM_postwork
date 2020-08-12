@@ -13,7 +13,7 @@ screen = pygame.display.set_mode(size)
 running = True
 global s, flag, choice_hs, hero, error_tail, way, flag_turn, flag_turn1, \
     flag_turn2, flag_turn3, turn_enemy, choice_alien, destr, health_hero, health_alien, fire, hit, tmp, mrh, \
-    flag_choice_alien, type_alien, dead, flag_ab, g1, flag_ab1, col_ab, fj, shoot_line, h
+    flag_choice_alien, type_alien, dead, flag_ab, g1, flag_ab1, col_ab, fj, shoot_line, bools_way
 mp = 5
 if mp == 1:
     pygame.mixer.music.load('data/sounds/mission1.mp3')
@@ -128,7 +128,6 @@ flag_ab = [0, 0, 0, 0]
 mrh = 0
 col_ab = [0, 0, 0, 0]
 flag_ab1 = 0
-h = 0
 flag_choice_alien = 0
 health_hero = [6, 5, 4, 5]
 choice_hs = [[28, 13], [28, 12], [29, 11], [29, 14]]
@@ -139,23 +138,10 @@ flag_turn2 = 0  # флаг хода снайпера
 flag_turn3 = 0  # флаг хода медика
 turn_enemy = 0  # флаг хода клятых алиенов
 hit = 0
+bools_way = 0
 tmp = 10
 g1 = []
 destr = []  # список разрушений
-
-
-class Shoot(pygame.sprite.Sprite):
-    def __init__(self, x, filename):
-        pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load(filename).convert_alpha()
-        self.rect = self.image.get_rect(center=(x, 0))
-
-    def update(self):
-        if self.rect.y < h:
-            self.rect.y += 2
-        else:
-            self.rect.y = 0
-
 
 class XCOM:
     def __init__(self, width, height):
@@ -261,11 +247,11 @@ class XCOM:
                         screen.blit(re, (965, 208))
                     elif mrh == 1:
                         screen.blit(strk, (965, 208))
-                        screen.blit(shoot_line, (choice_hs[hero - 1][1] * 32 - 64, choice_hs[hero - 1][0] * 32 - 64))
+                        screen.blit(shoot_line, (bools_way[1], bools_way[0]))
                     else:
                         screen.blit(miss, (965, 208))
-                        print(1)
-                        screen.blit(shoot_line, (choice_hs[hero - 1][1] * 32 + 64, choice_hs[hero - 1][0] * 32 - 64))
+                        print(bools_way)
+                        screen.blit(shoot_line, (bools_way[1] + 16, bools_way[0] + 16))
                 if flag_ab1 == 1:
                     for cor in range(g1[0] - 2, g1[0] + 3):
                         if cor >= 0 and cor <= 30 and g1[1] * 32 + 64 >= 0 and g1[1] * 32 - 64 <= 960:
@@ -558,7 +544,9 @@ while running:
                                                screen)[1]
                             shoot_line = \
                             Fire.fire(Fire(), choice_hs[0][0], choice_hs[0][1], s1[0], s1[1], fire_line, wall, 10,
-                                      screen)[2]
+                                      screen)[3][0]
+                            bools_way = Fire.fire(Fire(), choice_hs[0][0], choice_hs[0][1], s1[0], s1[1], fire_line, wall, 10,
+                                      screen)[4]
                             if sd == 1:
                                 health_a = text_menu.render(
                                     'HP пришельца - ' + str(health_alien[choice_alien.index([s1[0], s1[1]])]), 0,
@@ -581,7 +569,9 @@ while running:
                                           screen)[1]
                             shoot_line = \
                             Fire.fire(Fire(), choice_hs[0][0], choice_hs[0][1], s1[0], s1[1], fire_line, wall, 10,
-                                      screen)[2]
+                                      screen)[3][0]
+                            bools_way = Fire.fire(Fire(), choice_hs[0][0], choice_hs[0][1], s1[0], s1[1], fire_line, wall, 10,
+                                      screen)[4]
                             if sd == 1:
                                 fire = 3
                                 health_a = text_menu.render(
@@ -603,7 +593,9 @@ while running:
                                                15, screen)[1]
                             shoot_line = \
                             Fire.fire(Fire(), choice_hs[0][0], choice_hs[0][1], s1[0], s1[1], fire_line, wall, 10,
-                                      screen)[2]
+                                      screen)[3][0]
+                            bools_way = Fire.fire(Fire(), choice_hs[0][0], choice_hs[0][1], s1[0], s1[1], fire_line, wall, 10,
+                                      screen)[4]
                             if sd == 1:
                                 fire = 3
                                 health_a = text_menu.render(
@@ -625,7 +617,9 @@ while running:
                                                9, screen)[1]
                             shoot_line = \
                             Fire.fire(Fire(), choice_hs[0][0], choice_hs[0][1], s1[0], s1[1], fire_line, wall, 10,
-                                      screen)[2]
+                                      screen)[3][0]
+                            bools_way = Fire.fire(Fire(), choice_hs[0][0], choice_hs[0][1], s1[0], s1[1], fire_line, wall, 10,
+                                      screen)[4]
                             if sd == 1:
                                 fire = 3
                                 health_a = text_menu.render(
@@ -641,7 +635,7 @@ while running:
                     if event.type == pygame.KEYDOWN:
                         if event.key == pygame.K_ESCAPE:
                             fire = 0
-                if s1 not in choice_alien and event.pos[0] <= 960 and event.pos[1] <= 960:
+                if s1 not in choice_alien and event.pos[0] <= 960 and event.pos[1] <= 960 and tmp == 10:
                     if s1 == choice_hs[0] and dead[0] == 0:  # support
                         if s1 not in s:
                             hero = 1
